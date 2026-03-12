@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sawt.pro — AI يكتب بصوتك أنت</title>
+  <meta name="description" content="أول منصة عربية لهوية العلامة التجارية بالذكاء الاصطناعي. ارفع محتواك السابق — المنصة تفهم شخصيتك ولهجتك — ثم تولّد محتوى جديد بصوتك أنت.">
+  <meta property="og:title" content="Sawt.pro — AI يكتب بصوتك أنت">
+  <meta property="og:description" content="أول منصة عربية لهوية العلامة التجارية بالذكاء الاصطناعي">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans Arabic', sans-serif; color: #E5E7EB; background: #06060C; direction: rtl; overflow-x: hidden; }
+    ::selection { background: #F59E0B40; color: #fff; }
+    .heading { font-family: 'Noto Kufi Arabic', sans-serif; font-weight: 800; line-height: 1.3; }
+
+    /* Animations */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    @keyframes pulseGlow { 0%,100% { box-shadow: 0 0 20px #F59E0B30; } 50% { box-shadow: 0 0 40px #F59E0B50; } }
+    @keyframes spinSlow { 0% { transform: translate(-50%,-50%) rotate(0deg); } 100% { transform: translate(-50%,-50%) rotate(360deg); } }
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .cta-btn { animation: pulseGlow 3s ease infinite; transition: transform 0.3s, box-shadow 0.3s; }
+    .cta-btn:hover { transform: scale(1.04); box-shadow: 0 8px 30px #F59E0B40; }
+
+    /* Nav */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(6,6,12,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(245,158,11,0.08); padding: 0 24px; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 64px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, #F59E0B, #EF4444); display: flex; align-items: center; justify-content: center; font-family: 'Noto Kufi Arabic'; font-weight: 900; font-size: 14px; color: #fff; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { color: #9CA3AF; text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: #F59E0B; }
+    .nav-cta { background: linear-gradient(135deg, #F59E0B, #EF4444); color: #fff !important; padding: 8px 20px; border-radius: 10px; font-weight: 700 !important; }
+    @media (max-width: 640px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+    /* Sections */
+    section { position: relative; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .section-title { text-align: center; margin-bottom: 40px; }
+    .section-title h2 { font-size: 28px; color: #F3F4F6; margin-bottom: 10px; }
+    .section-title p { font-size: 15px; color: #6B7280; }
+
+    /* Hero */
+    .hero { padding: 80px 24px 60px; text-align: center; overflow: hidden; }
+    .hero-orb { position: absolute; top: 50%; left: 50%; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, #F59E0B06, transparent 70%); animation: spinSlow 60s linear infinite; pointer-events: none; }
+    .hero-badge { display: inline-block; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 24px; padding: 6px 20px; margin-bottom: 24px; font-size: 13px; color: #F59E0B; font-weight: 600; }
+    .hero h1 { font-size: clamp(32px, 6vw, 54px); margin-bottom: 20px; }
+    .hero h1 .gradient { background: linear-gradient(135deg, #F59E0B, #EF4444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-desc { font-size: clamp(16px, 2.5vw, 20px); color: #9CA3AF; line-height: 1.9; max-width: 600px; margin: 0 auto 36px; font-weight: 300; }
+    .hero-desc strong { color: #D1D5DB; font-weight: 600; }
+    .hero-counter { font-size: 13px; color: #6B7280; margin-top: 12px; }
+
+    /* Cards Grid */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .stat-card { background: rgba(15,15,25,0.8); border-radius: 16px; padding: 24px; border: 1px solid rgba(239,68,68,0.1); text-align: center; }
+    .stat-card .icon { font-size: 32px; }
+    .stat-card .num { font-size: 32px; color: #F87171; margin: 10px 0 6px; }
+    .stat-card p { font-size: 13px; color: #9CA3AF; line-height: 1.7; }
+
+    /* Steps */
+    .step { display: flex; gap: 20px; align-items: flex-start; background: rgba(15,15,25,0.6); border-radius: 16px; padding: 24px; margin-bottom: 16px; }
+    .step-icon { min-width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+    .step-num { font-size: 24px; opacity: 0.3; }
+    .step h3 { font-size: 17px; color: #E5E7EB; margin-bottom: 6px; }
+    .step p { font-size: 14px; color: #9CA3AF; line-height: 1.8; }
+
+    /* Demo */
+    .demo-box { background: rgba(15,15,25,0.8); border-radius: 20px; border: 1px solid rgba(245,158,11,0.1); overflow: hidden; }
+    .demo-section { padding: 24px; border-bottom: 1px solid rgba(75,85,99,0.15); }
+    .demo-section:last-child { border-bottom: none; }
+    .demo-label { font-size: 11px; font-weight: 600; margin-bottom: 8px; }
+    .demo-text { font-size: 14px; color: #D1D5DB; line-height: 1.9; background: rgba(0,0,0,0.3); padding: 16px; border-radius: 12px; }
+    .demo-tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
+    .demo-tab { padding: 10px 20px; border-radius: 12px; border: 1px solid rgba(75,85,99,0.3); background: rgba(15,15,25,0.6); color: #9CA3AF; cursor: pointer; font-size: 13px; font-weight: 600; font-family: 'IBM Plex Sans Arabic'; transition: all 0.2s; }
+    .demo-tab.active { border-color: #F59E0B; background: rgba(245,158,11,0.12); color: #F59E0B; }
+    .demo-tab:hover { background: rgba(245,158,11,0.08); }
+    .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .analysis-item { background: rgba(245,158,11,0.05); border-radius: 10px; padding: 8px 12px; border: 1px solid rgba(245,158,11,0.08); }
+    .analysis-item .label { font-size: 10px; color: #F59E0B; font-weight: 700; }
+    .analysis-item .value { font-size: 12px; color: #D1D5DB; margin-top: 2px; }
+    .demo-generate { width: 100%; padding: 14px; border-radius: 12px; border: none; cursor: pointer; background: linear-gradient(135deg, #F59E0B, #EF4444); color: #fff; font-size: 15px; font-weight: 700; font-family: 'Noto Kufi Arabic'; transition: transform 0.2s; }
+    .demo-generate:hover { transform: scale(1.02); }
+    .demo-result { background: rgba(16,185,129,0.05); border-radius: 12px; padding: 16px; border: 1px solid rgba(16,185,129,0.1); }
+    .demo-result p { font-size: 14px; color: #E5E7EB; line-height: 2; white-space: pre-line; }
+    .demo-loading { text-align: center; padding: 20px; }
+    .demo-loading .brain { font-size: 28px; animation: float 1.5s ease infinite; }
+
+    /* Audience */
+    .audience-card { background: rgba(15,15,25,0.6); border-radius: 16px; padding: 24px; border: 1px solid rgba(75,85,99,0.12); text-align: center; }
+    .audience-card .icon { font-size: 36px; }
+    .audience-card h3 { font-size: 15px; color: #E5E7EB; margin: 12px 0 8px; }
+    .audience-card p { font-size: 13px; color: #9CA3AF; line-height: 1.7; }
+
+    /* FAQ */
+    .faq-item { background: rgba(15,15,25,0.6); border-radius: 14px; padding: 18px 22px; margin-bottom: 10px; border: 1px solid rgba(75,85,99,0.12); cursor: pointer; transition: border-color 0.3s; }
+    .faq-item:hover { border-color: rgba(245,158,11,0.25); }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; }
+    .faq-q span { font-size: 14px; font-weight: 600; color: #E5E7EB; }
+    .faq-q .plus { color: #F59E0B; font-size: 18px; transition: transform 0.3s; }
+    .faq-a { font-size: 13px; color: #9CA3AF; line-height: 1.8; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(75,85,99,0.12); display: none; }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .plus { transform: rotate(45deg); }
+
+    /* Waitlist */
+    .waitlist-box { background: rgba(15,15,25,0.8); border-radius: 20px; padding: 28px; border: 1px solid rgba(245,158,11,0.12); max-width: 560px; margin: 0 auto; }
+    .waitlist-box input, .waitlist-box select { width: 100%; padding: 14px 18px; border-radius: 12px; border: 1px solid rgba(75,85,99,0.3); background: rgba(0,0,0,0.3); color: #E5E7EB; font-size: 15px; font-family: 'IBM Plex Sans Arabic'; margin-bottom: 14px; transition: all 0.3s; }
+    .waitlist-box input:focus, .waitlist-box select:focus { outline: none; border-color: #F59E0B; box-shadow: 0 0 0 3px #F59E0B20; }
+    .waitlist-box select { appearance: none; cursor: pointer; color: #6B7280; }
+    .success-box { background: rgba(16,185,129,0.08); border-radius: 20px; padding: 36px; border: 1px solid rgba(16,185,129,0.2); text-align: center; max-width: 560px; margin: 0 auto; display: none; }
+
+    /* Footer */
+    footer { padding: 30px 24px; border-top: 1px solid rgba(75,85,99,0.1); }
+    .footer-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+
+    /* Grain */
+    .grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; opacity: 0.02; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+
+    /* Decorative orbs */
+    .orb-1 { position: fixed; top: -200px; right: -200px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, #F59E0B08, transparent 70%); pointer-events: none; }
+    .orb-2 { position: fixed; bottom: -300px; left: -200px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, #3B82F608, transparent 70%); pointer-events: none; }
+
+    @media (max-width: 640px) {
+      .analysis-grid { grid-template-columns: 1fr; }
+      .step { flex-direction: column; align-items: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="orb-1"></div>
+<div class="orb-2"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">صوت</div>
+      <span class="heading" style="font-size:18px;color:#F3F4F6">Sawt<span style="color:#F59E0B">.pro</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#how">كيف يعمل</a>
+      <a href="#demo">التجربة</a>
+      <a href="#faq">الأسئلة</a>
+      <a href="#waitlist" class="nav-cta">انضم الآن</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb"></div>
+  <div style="position:relative;z-index:1;max-width:800px;margin:0 auto">
+    <div class="fade-up"><div class="hero-badge">✨ أول منصة عربية لهوية العلامة التجارية بالذكاء الاصطناعي</div></div>
+    <h1 class="heading fade-up" style="animation-delay:0.15s">
+      <span style="color:#F3F4F6">AI يكتب بـ</span><span class="gradient"> صوتك أنت</span><br>
+      <span style="color:#F3F4F6">مو بصوت الكل</span>
+    </h1>
+    <p class="hero-desc fade-up" style="animation-delay:0.3s">
+      ارفع محتواك السابق — المنصة تفهم شخصيتك ولهجتك وأسلوبك — ثم تولّد محتوى جديد لكل المنصات <strong>كأنك كتبته بنفسك</strong>
+    </p>
+    <div class="fade-up" style="animation-delay:0.45s">
+      <a href="#waitlist" class="cta-btn" style="display:inline-block;background:linear-gradient(135deg,#F59E0B,#EF4444);color:#fff;padding:16px 40px;border-radius:14px;font-size:18px;font-weight:700;text-decoration:none;font-family:'Noto Kufi Arabic'">
+        انضم لقائمة الانتظار — مجاناً
+      </a>
+      <p class="hero-counter">🔥 <span id="counter">12</span> شخص انضموا بالفعل — كن من الأوائل</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section style="padding:60px 24px;background:rgba(239,68,68,0.03)">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2 class="heading">المشكلة التي يعاني منها الجميع</h2>
+      <p>ولم يحلها أحد حتى الآن</p>
+    </div>
+    <div class="cards-grid">
+      <div class="stat-card fade-up"><div class="icon">😰</div><div class="heading num">81%</div><p>من الشركات تنتج محتوى لا يعكس هويتها</p></div>
+      <div class="stat-card fade-up"><div class="icon">👎</div><div class="heading num">83%</div><p>من المستهلكين يكتشفون محتوى AI المتشابه</p></div>
+      <div class="stat-card fade-up"><div class="icon">🌍</div><div class="heading num">3%</div><p>فقط من الإنترنت باللغة العربية</p></div>
+      <div class="stat-card fade-up"><div class="icon">⏰</div><div class="heading num">3h</div><p>يومياً يضيعها صانع المحتوى في إعادة الصياغة</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="padding:70px 24px">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2 class="heading">كيف يعمل Sawt؟</h2>
+      <p>4 خطوات — من محتواك القديم إلى محتوى جديد بنفس صوتك</p>
+    </div>
+    <div class="step fade-up" style="border:1px solid #F59E0B15;border-right:3px solid #F59E0B">
+      <div class="step-icon" style="background:#F59E0B12">📤</div>
+      <div><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><span class="heading step-num" style="color:#F59E0B">01</span><h3 class="heading">ارفع محتواك السابق</h3></div><p>الصق 3-5 تغريدات أو منشورات كتبتها سابقاً — أي محتوى يعبّر عن أسلوبك</p></div>
+    </div>
+    <div class="step fade-up" style="border:1px solid #3B82F615;border-right:3px solid #3B82F6">
+      <div class="step-icon" style="background:#3B82F612">🧠</div>
+      <div><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><span class="heading step-num" style="color:#3B82F6">02</span><h3 class="heading">AI يحلل شخصيتك</h3></div><p>يستخرج: نبرتك، لهجتك، مفرداتك، أسلوب إقناعك، استخدامك للإيموجي — كل شيء</p></div>
+    </div>
+    <div class="step fade-up" style="border:1px solid #8B5CF615;border-right:3px solid #8B5CF6">
+      <div class="step-icon" style="background:#8B5CF612">🧬</div>
+      <div><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><span class="heading step-num" style="color:#8B5CF6">03</span><h3 class="heading">يبني ملف هوية فريد</h3></div><p>ملف DNA كامل لعلامتك التجارية — يُحفظ ويتطور مع كل استخدام</p></div>
+    </div>
+    <div class="step fade-up" style="border:1px solid #10B98115;border-right:3px solid #10B981">
+      <div class="step-icon" style="background:#10B98112">✨</div>
+      <div><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><span class="heading step-num" style="color:#10B981">04</span><h3 class="heading">يولّد محتوى بصوتك</h3></div><p>اطلب محتوى لأي منصة — تويتر، إنستغرام، لينكدإن، إيميل — ويكتبه كأنك كتبته أنت</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section id="demo" style="padding:70px 24px;background:rgba(245,158,11,0.02)">
+  <div style="max-width:800px;margin:0 auto">
+    <div class="section-title fade-up">
+      <h2 class="heading">🧪 شاهد النتيجة بنفسك</h2>
+      <p>اختر علامة تجارية وشاهد كيف يحلل AI هويتها ثم يولّد محتوى جديد</p>
+    </div>
+    <div class="demo-tabs fade-up" id="demoTabs">
+      <button class="demo-tab active" onclick="switchDemo(0)">مقهى عصري</button>
+      <button class="demo-tab" onclick="switchDemo(1)">شركة تقنية</button>
+      <button class="demo-tab" onclick="switchDemo(2)">متجر أزياء</button>
+    </div>
+    <div class="demo-box fade-up">
+      <div class="demo-section">
+        <div class="demo-label" style="color:#6B7280">📝 محتوى العلامة الأصلي</div>
+        <div class="demo-text" id="demoInput"></div>
+      </div>
+      <div class="demo-section">
+        <div class="demo-label" style="color:#F59E0B">🧠 تحليل الهوية</div>
+        <div class="analysis-grid" id="demoAnalysis"></div>
+      </div>
+      <div class="demo-section" id="demoAction">
+        <button class="demo-generate" onclick="generateDemo()">⚡ ولّد محتوى جديد بنفس الهوية</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section style="padding:70px 24px">
+  <div class="container">
+    <div class="section-title fade-up"><h2 class="heading">مصمّم لك</h2></div>
+    <div class="cards-grid">
+      <div class="audience-card fade-up"><div class="icon">✍️</div><h3 class="heading">صنّاع المحتوى</h3><p>وفّر 60+ ساعة شهرياً وانشر على كل المنصات بأسلوبك الفريد</p></div>
+      <div class="audience-card fade-up"><div class="icon">🏢</div><h3 class="heading">وكالات التسويق</h3><p>أدِر 20 عميل بـ 20 هوية مختلفة — تنقّل بينهم بضغطة واحدة</p></div>
+      <div class="audience-card fade-up"><div class="icon">🛒</div><h3 class="heading">المتاجر الإلكترونية</h3><p>أوصاف منتجات + إعلانات + ردود عملاء — كلها بهوية متجرك</p></div>
+      <div class="audience-card fade-up"><div class="icon">👤</div><h3 class="heading">العلامات الشخصية</h3><p>حافظ على أسلوبك المميز — AI يكتب مثلك تماماً</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="padding:70px 24px;background:rgba(245,158,11,0.02)">
+  <div style="max-width:700px;margin:0 auto">
+    <div class="section-title fade-up"><h2 class="heading">أسئلة شائعة</h2></div>
+    <div class="faq-item fade-up" onclick="toggleFaq(this)"><div class="faq-q"><span>هل يدعم اللهجات العربية المختلفة؟</span><span class="plus">+</span></div><div class="faq-a">نعم! المنصة تفهم وتكتب بالسعودية والمصرية والخليجية والشامية. هذه أقوى ميزة لدينا — لا توجد أداة أخرى تفعل هذا.</div></div>
+    <div class="faq-item fade-up" onclick="toggleFaq(this)"><div class="faq-q"><span>هل المحتوى يبدو كأنه من AI؟</span><span class="plus">+</span></div><div class="faq-a">لا. بما أن المحتوى مبني على أسلوبك الحقيقي، فهو يبدو طبيعياً تماماً. 83% من الناس يكتشفون محتوى AI العادي — لكن محتوى Sawt مختلف.</div></div>
+    <div class="faq-item fade-up" onclick="toggleFaq(this)"><div class="faq-q"><span>كم يكلف الاشتراك؟</span><span class="plus">+</span></div><div class="faq-a">نبدأ بباقة مجانية (5 محتويات/شهر) لتجرب الأداة. الباقات المدفوعة تبدأ من $29/شهر. سنعلن التفاصيل عند الإطلاق.</div></div>
+    <div class="faq-item fade-up" onclick="toggleFaq(this)"><div class="faq-q"><span>متى يتم الإطلاق؟</span><span class="plus">+</span></div><div class="faq-a">قريباً جداً! انضم لقائمة الانتظار وستكون من أوائل من يجرب المنصة مجاناً.</div></div>
+    <div class="faq-item fade-up" onclick="toggleFaq(this)"><div class="faq-q"><span>هل يناسب الوكالات التي تدير عدة حسابات؟</span><span class="plus">+</span></div><div class="faq-a">تماماً. يمكنك إنشاء ملف هوية منفصل لكل عميل والتنقل بينهم بضغطة واحدة.</div></div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section id="waitlist" style="padding:80px 24px">
+  <div style="text-align:center;max-width:600px;margin:0 auto">
+    <div class="fade-up">
+      <h2 class="heading" style="font-size:32px;color:#F3F4F6;margin-bottom:12px">كن من الأوائل</h2>
+      <p style="font-size:16px;color:#9CA3AF;line-height:1.8;margin-bottom:32px">انضم لقائمة الانتظار واحصل على وصول مبكر مجاني + خصم 50% على أول 3 أشهر</p>
+    </div>
+    <div class="waitlist-box fade-up" id="waitl
